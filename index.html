@@ -923,6 +923,62 @@
       text-decoration: line-through;
       filter: grayscale(1);
     }
+
+    @media (max-width: 680px) {
+
+      /* CTA pleine largeur seulement dans le contenu, pas dans le header */
+      .form .cta,
+      .hero .actions .cta,
+      #contact .cta {
+        width: 100%;
+      }
+
+      /* CTA de la NAV : largeur auto et pas d’étirement */
+      header .cta {
+        width: auto;
+        flex: 0 0 auto;
+      }
+    }
+
+    /* S’assure que le CTA de nav ne s’étire jamais même en desktop */
+    header .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      flex: 0 0 auto;
+      max-width: none;
+    }
+
+    /* 2.1 – Ne pas forcer le smooth scroll global (on gère via JS quand nécessaire) */
+    html {
+      scroll-behavior: auto;
+    }
+
+    /* 2.2 – Allège les effets coûteux sur mobile/tablette */
+    @media (max-width: 980px) {
+
+      /* Remplacer le blur par un fond plus opaque */
+      header {
+        backdrop-filter: none;
+        background: rgba(18, 18, 18, .95);
+      }
+
+      /* Désactiver la texture mix-blend (cher) quand on scrolle sur mobile */
+      body.texture:before {
+        display: none;
+      }
+    }
+
+    /* 2.3 – Promote to its own layer (peut aider sur certains navigateurs) */
+    header {
+      will-change: transform;
+    }
+
+    .carousel,
+    .carousel-track {
+      transform: translateZ(0);
+    }
   </style>
 </head>
 
