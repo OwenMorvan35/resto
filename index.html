@@ -979,6 +979,190 @@
     .carousel-track {
       transform: translateZ(0);
     }
+
+    /* Bords confort + zones sûres (encoches iPhone) */
+    .container {
+      padding-left: max(clamp(16px, 4vw, 24px), env(safe-area-inset-left));
+      padding-right: max(clamp(16px, 4vw, 24px), env(safe-area-inset-right));
+    }
+
+    /* La barre de nav respire un peu plus */
+    header .nav {
+      padding: 12px 0;
+      gap: 12px;
+    }
+
+    /* Le CTA de nav ne s'étire pas et reste compact */
+    header .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      padding: 9px 12px;
+      flex: 0 0 auto;
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 680px) {
+      .brand {
+        gap: 10px;
+      }
+
+      .logo {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+      }
+
+      .brand h1 {
+        font-size: 16px;
+      }
+
+      /* Burger après le CTA, mais on garde l'espacement */
+      .menu-toggle {
+        order: 3;
+      }
+
+      /* Menu déroulant : bien positionné et sans coller au bord */
+      nav ul {
+        position: absolute;
+        right: max(16px, env(safe-area-inset-right));
+        top: 56px;
+        background: rgba(18, 18, 18, .98);
+        padding: 10px;
+        border-radius: 12px;
+        border: 1px solid var(--stroke);
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 200px;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, .35);
+      }
+
+      nav ul.open {
+        display: flex;
+      }
+
+      nav a {
+        padding: 10px 12px;
+      }
+
+      /* Très important : ne PAS élargir le CTA du header en full-width */
+      header .cta {
+        width: auto;
+      }
+
+      /* Si tu avais une règle globale .cta{width:100%} en mobile, garde-la ailleurs : */
+      .form .cta,
+      .hero .actions .cta,
+      #contact .cta {
+        width: 100%;
+      }
+    }
+
+    /* NAV: bords confort en mobile (et safe-area iPhone) */
+    @media (max-width: 680px) {
+      header .container.nav {
+        padding-left: max(24px, env(safe-area-inset-left)) !important;
+        padding-right: max(24px, env(safe-area-inset-right)) !important;
+      }
+
+      /* Un peu plus d'air vertical */
+      header .nav {
+        padding: 12px 0 !important;
+        gap: 12px;
+      }
+
+      /* Logo compact */
+      .logo {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+      }
+
+      .brand h1 {
+        font-size: 16px;
+      }
+    }
+
+    /* Burger compact et bien décollé du bord */
+    .menu-toggle {
+      padding: 8px 10px;
+      /* hit area confortable */
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+    }
+
+    /* Sur mobile on ajoute une micro-marge interne au container via padding ci-dessus ;
+   si tu veux encore plus d’air à droite du burger, ajoute : */
+    @media (max-width: 680px) {
+      .menu-toggle {
+        margin-right: 2px;
+      }
+
+      /* optionnel */
+    }
+
+    /* Le conteneur de la barre doit être "relative" pour ancrer le menu déroulant */
+    header .nav {
+      position: relative;
+    }
+
+    /* Bords confort en mobile + safe area */
+    @media (max-width: 680px) {
+      header .container.nav {
+        padding-left: max(24px, env(safe-area-inset-left)) !important;
+        padding-right: max(24px, env(safe-area-inset-right)) !important;
+      }
+
+      /* Menu mobile : dropdown correctement positionné et visible au-dessus */
+      nav ul {
+        position: absolute;
+        right: max(16px, env(safe-area-inset-right));
+        top: 56px;
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 200px;
+        padding: 10px;
+        border-radius: 12px;
+        border: 1px solid var(--stroke);
+        background: rgba(18, 18, 18, .98);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, .35);
+        z-index: 60;
+        /* > header z-index:50 */
+      }
+
+      nav ul.open {
+        display: flex;
+      }
+
+      /* Burger compact + clique confortable */
+      .menu-toggle {
+        padding: 8px 10px;
+        border: 1px solid var(--stroke);
+        border-radius: 12px;
+        background: transparent;
+      }
+
+      /* CTA nav compact et non étiré */
+      header .cta {
+        width: auto;
+        flex: 0 0 auto;
+        padding: 9px 12px;
+        white-space: nowrap;
+      }
+
+      .logo {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+      }
+
+      .brand h1 {
+        font-size: 16px;
+      }
+    }
   </style>
 </head>
 
@@ -989,13 +1173,18 @@
         <div class="logo" aria-hidden="true"></div>
         <h1>La Dolce Vita</h1>
       </div>
+
+      <a class="cta" href="#reservations">Réserver</a>
+
+      <!-- Burger APRÈS le CTA, et il contrôle bien #menu-list -->
+      <button class="menu-toggle" aria-expanded="false" aria-controls="menu-list" aria-label="Ouvrir le menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="#bfb7a9" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+
       <nav>
-        <button class="menu-toggle" aria-expanded="false" aria-controls="menu-list" aria-label="Ouvrir le menu">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true">
-            <path d="M4 6h16M4 12h16M4 18h16" stroke="#bfb7a9" stroke-width="2" stroke-linecap="round" />
-          </svg>
-        </button>
         <ul id="menu-list">
           <li><a href="#accueil">Accueil</a></li>
           <li><a href="#menu">Menu</a></li>
@@ -1003,9 +1192,9 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
-      <a class="cta" href="#reservations">Réserver</a>
     </div>
   </header>
+
 
   <section id="accueil" class="carousel" aria-label="Galerie photos">
     <div class="carousel-track">
@@ -1022,7 +1211,7 @@
         </div>
       </div>
 
-      <div class="carousel-slide" style="--img:url('assets/img/photo2.jpg')">
+      <div class="carousel-slide" style="--img:url('https://www.terroir-evasion.com/wp-content/uploads/2019/06/Assaggio-restaurant-Hotel-Castille-collezione-Patio-nuit-750x516.jpg')">
         <div class="slide-overlay">
           <span class="pill">Pizzas au feu de bois</span>
           <h2>Pâte 48h, garnitures généreuses</h2>
@@ -1970,6 +2159,106 @@
       });
     });
   </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.querySelector('.menu-toggle');
+      const list = document.getElementById('menu-list');
+
+      if (!toggle || !list) return;
+
+      // Ouverture/fermeture
+      toggle.addEventListener('click', () => {
+        const isOpen = list.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      // Fermer après clic sur un lien
+      list.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          list.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // Fermer au changement d’ancre
+      window.addEventListener('hashchange', () => {
+        list.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+
+      // Fermer si clic à l’extérieur
+      document.addEventListener('click', (e) => {
+        if (!list.classList.contains('open')) return;
+        const inNav = e.target.closest('nav');
+        const onToggle = e.target.closest('.menu-toggle');
+        if (!inNav && !onToggle) {
+          list.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Revenir proprement en desktop
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 680) {
+          list.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.querySelector('.menu-toggle');
+      if (!toggle) return;
+
+      // Récupère la cible depuis aria-controls (plus robuste)
+      const targetId = toggle.getAttribute('aria-controls') || 'menu-list';
+      const list = document.getElementById(targetId);
+      if (!list) return;
+
+      function openMenu() {
+        list.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+      function closeMenu() {
+        list.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+      function toggleMenu() {
+        const isOpen = list.classList.contains('open');
+        isOpen ? closeMenu() : openMenu();
+      }
+
+      // Ouvrir/fermer au clic sur le burger
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation(); // évite une fermeture immédiate par le "click outside"
+        toggleMenu();
+      });
+
+      // Fermer au clic sur un lien
+      list.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => closeMenu());
+      });
+
+      // Fermer si clic à l'extérieur
+      document.addEventListener('click', (e) => {
+        if (!list.classList.contains('open')) return;
+        const inMenu = e.target.closest('#' + targetId);
+        const onToggle = e.target.closest('.menu-toggle');
+        if (!inMenu && !onToggle) closeMenu();
+      });
+
+      // Fermer au changement de hash (ancre)
+      window.addEventListener('hashchange', closeMenu);
+
+      // Revenir proprement en desktop
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 680) closeMenu();
+      });
+    });
+  </script>
+
 
 
 
