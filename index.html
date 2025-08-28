@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>La Dolce Vita – Demo one-page</title>
+  <meta name="theme-color" content="#121212" />
+  <style>
+    :root {
+      --bg: #121212;
+      --text: #eaeaea;
+      --muted: #b6b6b6;
+      --brand: #caa56a;
+      --brand-2: #8b5e34;
+      --card: #1c1c1c;
+      --stroke: #2a2a2a;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+      --maxw: 1200px;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+      background: linear-gradient(180deg, #121212, #0f0f0f);
+      color: var(--text)
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: Georgia, "Times New Roman", Times, serif
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: 12px
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--maxw);
+      margin-inline: auto;
+      padding: 0 20px
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(18, 18, 18, .75);
+      backdrop-filter: saturate(1.2) blur(10px);
+      border-bottom: 1px solid var(--stroke)
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 30% 30%, var(--brand) 0 45%, var(--brand-2) 45% 75%, transparent 75%);
+      box-shadow: 0 6px 18px rgba(202, 165, 106, .3)
+    }
+
+    .brand h1 {
+      font-size: 20px;
+      letter-spacing: .4px;
+      margin: 0
+    }
+
+    nav ul {
+      display: flex;
+      gap: 18px;
+      list-style: none;
+      margin: 0;
+      padding: 0
+    }
+
+    nav a {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 12px
+    }
+
+    nav a:hover {
+      border-color: var(--stroke);
+      background: rgba(255, 255, 255, .04)
+    }
+
+    .cta {
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #111;
+      border: 1px solid rgba(202, 165, 106, .35);
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(139, 94, 52, .25);
+      cursor: pointer;
+      letter-spacing: .02em
+    }
+
+    .cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(139, 94, 52, .32)
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      padding: 8px
+    }
+
+    .hero {
+      position: relative;
+      isolation: isolate;
+      min-height: 64vh
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden
+    }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(.38) saturate(1.05) contrast(1.06)
+    }
+
+    .hero-content {
+      padding: 140px 0 90px;
+      position: relative
+    }
+
+    .hero h2 {
+      font-size: 46px;
+      line-height: 1.1;
+      margin: 0 0 16px
+    }
+
+    .hero p {
+      max-width: 730px;
+      font-size: 18px;
+      color: var(--muted)
+    }
+
+    .hero .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap
+    }
+
+    .pill {
+      display: inline-flex;
+      /* nouveau */
+      align-items: center;
+      /* centre vertical */
+      justify-content: center;
+      /* centre horizontal */
+      padding: 10px 14px;
+      border: 1px solid rgba(202, 165, 106, .25);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .03);
+      line-height: 1;
+      /* pour éviter que le texte dépasse */
+    }
+
+    .pill,
+    .cta {
+      min-height: 40px;
+    }
+
+
+
+    section {
+      padding: 72px 0;
+      border-top: 1px solid var(--stroke)
+    }
+
+    .section-title {
+      font-size: 34px;
+      margin: 0 0 10px
+    }
+
+    .section-desc {
+      color: var(--muted);
+      margin: 0 0 28px
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 24px;
+      align-items: center
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--card), #171717);
+      border: 1px solid rgba(202, 165, 106, .2);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow)
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px
+    }
+
+    .menu-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr))
+    }
+
+    .menu-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px;
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .02);
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease
+    }
+
+    .menu-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, .35);
+      border-color: rgba(202, 165, 106, .45)
+    }
+
+    .menu-item h4 {
+      margin: 0 0 6px
+    }
+
+    .price {
+      margin-left: auto;
+      font-weight: 700;
+      color: var(--brand)
+    }
+
+    .tag {
+      font-size: 12px;
+      color: #d0c4b6;
+      border: 1px solid var(--stroke);
+      padding: 4px 8px;
+      border-radius: 999px
+    }
+
+    .form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px
+    }
+
+    .form .full {
+      grid-column: 1 / -1
+    }
+
+    label {
+      font-size: 14px;
+      color: #d7d7d7
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--stroke);
+      background: #151515;
+      color: var(--text)
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical
+    }
+
+    .hint {
+      color: #bcbcbc;
+      font-size: 12px
+    }
+
+    .notice {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(34, 197, 94, .1);
+      border: 1px solid rgba(34, 197, 94, .3);
+      color: #bbf7d0
+    }
+
+    .reviews {
+      grid-template-columns: repeat(3, minmax(0, 1fr))
+    }
+
+    .stars {
+      display: inline-flex;
+      gap: 2px;
+      vertical-align: middle
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px
+    }
+
+    .map {
+      aspect-ratio: 16/10;
+      border: 0;
+      border-radius: 12px;
+      width: 100%
+    }
+
+    .call-mobile {
+      display: none
+    }
+
+    footer {
+      border-top: 1px solid var(--stroke);
+      padding: 28px 0;
+      color: #bfb7a9
+    }
+
+    @media (max-width: 980px) {
+      .about {
+        grid-template-columns: 1fr
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .reviews {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .contact {
+        grid-template-columns: 1fr
+      }
+
+      .hero h2 {
+        font-size: 38px
+      }
+    }
+
+    @media (max-width: 680px) {
+      nav ul {
+        display: none;
+        position: absolute;
+        right: 20px;
+        top: 64px;
+        background: rgba(18, 18, 18, .98);
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid var(--stroke);
+        flex-direction: column;
+        min-width: 200px
+      }
+
+      nav ul.open {
+        display: flex
+      }
+
+      .menu-toggle {
+        display: inline-flex
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr
+      }
+
+      .reviews {
+        grid-template-columns: 1fr
+      }
+
+      .hero-content {
+        padding: 90px 0 56px
+      }
+
+      .call-mobile {
+        display: inline-flex
+      }
+
+      .cta {
+        width: 100%
+      }
+    }
+
+    body.texture:before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at top, rgba(255, 255, 255, .02), transparent 60%),
+        radial-gradient(ellipse at bottom, rgba(0, 0, 0, .25), transparent 60%),
+        url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%22240%22><rect width=%2240%22 height=%22240%22 fill=%22%23000000%22 opacity=%220.02%22/></svg>');
+      mix-blend-mode: overlay
+    }
+
+    /* --- Carousel --- */
+    /* --- Carousel --- */
+    /* Slides déjà en fond image tamisé via --img */
+    .carousel-slide {
+      position: relative;
+      min-width: 100%;
+      height: 100%;
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, .25), rgba(0, 0, 0, .55)), var(--img);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Overlay PAR SLIDE */
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .slide-overlay h2 {
+      font-family: Georgia, serif;
+      font-size: 46px;
+      line-height: 1.1;
+      margin: 12px 0 12px;
+      color: #fff;
+      text-shadow: 0 4px 14px rgba(0, 0, 0, .6);
+    }
+
+    .slide-overlay p {
+      max-width: 720px;
+      font-size: 18px;
+      color: #ddd;
+      margin: 0 0 20px;
+    }
+
+    .slide-overlay .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* (Déjà ajouté précédemment, mais au cas où) */
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      min-height: 70vh;
+    }
+
+    .carousel-track {
+      display: flex;
+      height: 70vh;
+      transition: transform .6s ease;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      background: none;
+      /* pas de fond */
+      border: none;
+      color: #fff;
+      /* blanc pur */
+      font-size: 2.5rem;
+      /* plus gros pour lisibilité */
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 6px;
+      /* petit padding horizontal */
+      transition: color .2s;
+    }
+
+    .carousel-btn:hover {
+      color: #caa56a;
+      /* doré au survol */
+    }
+
+    .carousel-btn.prev {
+      left: 20px;
+      right: auto;
+    }
+
+    .carousel-btn.next {
+      right: 20px;
+      left: auto;
+    }
+
+    .carousel-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 4;
+    }
+
+    .carousel-dots .dot {
+      flex: 0 0 auto;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(68, 68, 68, 0.4);
+      border: 1px solid rgba(82, 82, 82, 0.6);
+      cursor: pointer;
+    }
+
+    .carousel-dots .dot[aria-selected="true"] {
+      background: #caa56a;
+      border-color: #caa56a;
+    }
+
+    @media (max-width: 680px) {
+
+      .carousel,
+      .carousel-track,
+      .carousel-slide {
+        min-height: 56vh;
+        height: 56vh;
+      }
+
+      .slide-overlay h2 {
+        font-size: 28px;
+      }
+    }
+
+    /* Supprime le padding/bordure de la section accueil */
+    #accueil.carousel {
+      padding: 0;
+      /* plus de padding */
+      border-top: none;
+      /* plus de bordure en haut */
+      min-height: 100vh;
+      /* par défaut faire full viewport (on affine en JS ci-dessous) */
+    }
+
+    /* Assure-toi que le header ne laisse aucun “trou” visuel */
+    header {
+      border-bottom: none;
+    }
+
+    /* optionnel si tu veux zéro trait sous la nav */
+
+    /* Le track/slide doit suivre la hauteur de la section */
+    #accueil.carousel .carousel-track,
+    #accueil.carousel .carousel-slide {
+      height: 100vh;
+      /* sera ajusté en JS à la hauteur exacte utile */
+      min-height: 100vh;
+    }
+
+    /* Dots superposés à l’image (déjà absolute), on augmente leur z-index et on supprime tout espace qui gêne */
+    #accueil.carousel .carousel-dots {
+      z-index: 5;
+      /* au-dessus de tout */
+      bottom: 20px;
+      /* chevauche l’image */
+      pointer-events: auto;
+    }
+
+    nav a {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--text);
+      transition: color .2s, border-color .2s;
+    }
+
+    nav a:hover {
+      color: var(--brand);
+      /* texte doré au survol */
+      border-color: var(--brand);
+      /* fin soulignement doré */
+      background: none;
+      /* plus de fond gris */
+    }
+
+    #toTop {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      border: none;
+      background: none;
+      /* pas de couleur de fond */
+      padding: 0;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s, visibility .3s, transform .2s;
+      z-index: 50;
+    }
+
+    #toTop img {
+      width: 55px;
+      height: 55px;
+      display: block;
+      transform: rotate(-45deg);
+      /* tourne la flèche nord-est en flèche haut */
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .5));
+      transition: transform .3s;
+    }
+
+    #toTop:hover img {
+      transform: rotate(-45deg) translateY(-3px);
+      /* garde la rotation + effet hover */
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .6));
+    }
+
+
+    #toTop.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* --- Team section --- */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .team-card {
+      background: linear-gradient(180deg, var(--card), #171717);
+      border: 1px solid rgba(202, 165, 106, .2);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .team-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, .35);
+      border-color: rgba(202, 165, 106, .4);
+    }
+
+    .team-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 14px;
+      border: 2px solid var(--brand);
+      display: block;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .team-card:hover img {
+      transform: scale(1.08);
+      /* zoom léger */
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .4);
+      /* ombre autour */
+    }
+
+
+
+    .team-card h4 {
+      margin: 8px 0 4px;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .team-card .role {
+      font-size: 14px;
+      color: var(--brand);
+      margin-bottom: 8px;
+    }
+
+    .team-card .bio {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Alignement consentement */
+    .consent-wrap {
+      display: flex;
+      align-items: center;
+      /* centre verticalement */
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .consent-wrap input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--brand);
+      /* belle case dorée (supporté sur Chrome/Edge/Firefox) */
+      flex-shrink: 0;
+    }
+
+    .consent-wrap label {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ==== Modales (calendrier & heure) ==== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      background: rgba(0, 0, 0, .5);
+      z-index: 60;
+      padding: 16px;
+    }
+
+    .modal.show {
+      display: grid;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(180deg, var(--card), #171717);
+      border: 1px solid rgba(202, 165, 106, .25);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      color: var(--text);
+      padding: 16px;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .modal-header h4 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 6px 10px;
+    }
+
+    .icon-btn:hover {
+      color: var(--brand);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    /* Calendrier */
+    .calendar {
+      user-select: none;
+    }
+
+    .cal-weekdays,
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+    }
+
+    .cal-weekdays {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      gap: 6px;
+      margin: 6px 0 10px;
+    }
+
+    .cal-weekdays div {
+      text-align: center;
+      padding: 6px 0;
+    }
+
+    .cal-grid {
+      gap: 6px;
+    }
+
+    .cal-day {
+      text-align: center;
+      padding: 10px 0;
+      border-radius: 10px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, .02);
+      border: 1px solid var(--stroke);
+    }
+
+    .cal-day:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+
+    .cal-day.muted {
+      opacity: .4;
+      cursor: default;
+    }
+
+    .cal-day.disabled {
+      opacity: .3;
+      pointer-events: none;
+    }
+
+    .cal-day.today {
+      outline: 1px dashed var(--brand-2);
+    }
+
+    .cal-day.selected {
+      background: rgba(202, 165, 106, .12);
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+
+    /* Liste d'heures */
+    .time-list {
+      max-height: 340px;
+      overflow: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .time-slot {
+      padding: 10px 12px;
+      text-align: center;
+      border-radius: 10px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, .02);
+      border: 1px solid var(--stroke);
+    }
+
+    .time-slot:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+
+    .time-slot.disabled {
+      opacity: .35;
+      pointer-events: none;
+    }
+
+    /* Compacts mobile */
+    @media (max-width: 480px) {
+      .time-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .time-slot.disabled {
+      opacity: .35 !important;
+      pointer-events: none !important;
+      cursor: not-allowed !important;
+      text-decoration: line-through;
+      filter: grayscale(1);
+    }
+  </style>
+</head>
+
+<body class="texture">
+  <header>
+    <div class="container nav" role="navigation" aria-label="Navigation principale">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>La Dolce Vita</h1>
+      </div>
+      <nav>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="menu-list" aria-label="Ouvrir le menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16" stroke="#bfb7a9" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <ul id="menu-list">
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#reservations">Réservations</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="cta" href="#reservations">Réserver</a>
+    </div>
+  </header>
+
+  <section id="accueil" class="carousel" aria-label="Galerie photos">
+    <div class="carousel-track">
+      <div class="carousel-slide"
+        style="--img:url('https://www.akirestaurant.fr/wp-content/uploads/2021/11/c7feaf88ee1af5a55ebfe297ae8601cc-800x445.jpeg')">
+        <div class="slide-overlay">
+          <span class="pill">Cave à vins & antipasti</span>
+          <h2>La chaleur d’une trattoria</h2>
+          <p>Produits sourcés, charcuteries affinées, vins italiens de caractère.</p>
+          <div class="actions">
+            <a class="cta" href="#menu">Voir le menu</a>
+            <a class="pill" href="#reservations">Réserver</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-slide" style="--img:url('assets/img/photo2.jpg')">
+        <div class="slide-overlay">
+          <span class="pill">Pizzas au feu de bois</span>
+          <h2>Pâte 48h, garnitures généreuses</h2>
+          <p>Tomates San Marzano, fior di latte, huile d’olive première pression.</p>
+          <div class="actions">
+            <a class="cta" href="#menu">Spécialités</a>
+            <a class="pill" href="#reservations">Réserver</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-slide" style="--img:url('assets/img/photo3.jpg')">
+        <div class="slide-overlay">
+          <span class="pill">Service midi & soir</span>
+          <h2>Ambiance conviviale</h2>
+          <p>Privatisation, anniversaires, menus groupes sur demande.</p>
+          <div class="actions">
+            <a class="cta" href="#contact">Nous contacter</a>
+            <a class="pill" href="#reservations">Réserver</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <button class="carousel-btn prev" aria-label="Photo précédente">‹</button>
+    <button class="carousel-btn next" aria-label="Photo suivante">›</button>
+
+    <div class="carousel-dots" role="tablist" aria-label="Navigation galerie">
+      <button class="dot" aria-selected="true" aria-label="Aller à la photo 1"></button>
+      <button class="dot" aria-label="Aller à la photo 2"></button>
+      <button class="dot" aria-label="Aller à la photo 3"></button>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="container about">
+      <div class="card">
+        <h3 class="section-title">La maison</h3>
+        <p class="section-desc">Depuis 2005, notre équipe cuisine chaque jour des produits frais, locaux et de
+          saison. Notre pâte à pizza repose 48h pour un moelleux incomparable.</p>
+        <ul>
+          <li>Farines italiennes sélectionnées</li>
+          <li>Mozzarella fior di latte AOP</li>
+          <li>Options végétariennes et sans gluten</li>
+        </ul>
+      </div>
+      <img
+        src="https://www.yonder.fr/sites/default/files/styles/lg-insert/public/contenu/destinations/racines%20paris2.jpg?itok=QwiY59zN' width='1600' height='900'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%233a2a20'/%3E%3Cstop offset='100%25' stop-color='%231b1b1b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23caa56a' font-family='Georgia, serif' font-size='64'%3ELa Maison / Cuisine%3C/text%3E%3C/svg%3E"
+        alt="Chef préparant des pâtes fraîches" />
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="container">
+      <h3 class="section-title">Nos incontournables</h3>
+      <p class="section-desc">Une sélection courte, maîtrisée et préparée à la minute. Le menu complet est
+        disponible sur place et en PDF.</p>
+      <div class="grid menu-grid">
+        <article class="menu-item">
+          <img
+            src="https://www.fackelmann.fr/cdn/shop/articles/bruschetta-a-la-tomate-et-a-la-mozzarelle-6_1600x1600.jpg?v=1726669054' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%233a2a20'/%3E%3Cstop offset='100%25' stop-color='%231b1b1b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23caa56a' font-family='Georgia, serif' font-size='36'%3EEntr%C3%A9e%3C/text%3E%3C/svg%3E"
+            alt="Bruschetta" width="96" height="96" />
+          <div>
+            <h4>Bruschetta tomate-basilic <span class="tag">Entrée</span></h4>
+            <p class="hint">Pain grillé, tomate confite, basilic, huile d'olive</p>
+          </div>
+          <div class="price">8€</div>
+        </article>
+
+        <article class="menu-item">
+          <img
+            src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%233a2a20'/%3E%3Cstop offset='100%25' stop-color='%231b1b1b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23caa56a' font-family='Georgia, serif' font-size='36'%3EPlat%3C/text%3E%3C/svg%3E"
+            alt="Tagliatelle alla carbonara" width="96" height="96" />
+          <div>
+            <h4>Tagliatelle alla carbonara <span class="tag">Plat</span></h4>
+            <p class="hint">Guanciale, pecorino romano, œufs bio</p>
+          </div>
+          <div class="price">15€</div>
+        </article>
+
+        <article class="menu-item">
+          <img
+            src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%233a2a20'/%3E%3Cstop offset='100%25' stop-color='%231b1b1b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23caa56a' font-family='Georgia, serif' font-size='36'%3EPizza%3C/text%3E%3C/svg%3E"
+            alt="Pizza Margherita" width="96" height="96" />
+          <div>
+            <h4>Pizza Margherita <span class="tag">Plat</span></h4>
+            <p class="hint">Tomate San Marzano, mozzarella fior di latte, basilic</p>
+          </div>
+          <div class="price">12€</div>
+        </article>
+
+        <article class="menu-item">
+          <img
+            src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%233a2a20'/%3E%3Cstop offset='100%25' stop-color='%231b1b1b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23caa56a' font-family='Georgia, serif' font-size='36'%3EDessert%3C/text%3E%3C/svg%3E"
+            alt="Tiramisu" width="96" height="96" />
+          <div>
+            <h4>Tiramisu classico <span class="tag">Dessert</span></h4>
+            <p class="hint">Mascarpone, café espresso, cacao</p>
+          </div>
+          <div class="price">7€</div>
+        </article>
+
+        <article class="menu-item">
+          <img
+            src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%233a2a20'/%3E%3Cstop offset='100%25' stop-color='%231b1b1b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23caa56a' font-family='Georgia, serif' font-size='36'%3EEntr%C3%A9e%3C/text%3E%3C/svg%3E"
+            alt="Salade burrata" width="96" height="96" />
+          <div>
+            <h4>Salade burrata <span class="tag">Entrée</span></h4>
+            <p class="hint">Tomates anciennes, pesto maison, roquette</p>
+          </div>
+          <div class="price">11€</div>
+        </article>
+
+        <article class="menu-item">
+          <img
+            src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%233a2a20'/%3E%3Cstop offset='100%25' stop-color='%231b1b1b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23caa56a' font-family='Georgia, serif' font-size='36'%3EDessert%3C/text%3E%3C/svg%3E"
+            alt="Panna cotta" width="96" height="96" />
+          <div>
+            <h4>Panna cotta fruits rouges <span class="tag">Dessert</span></h4>
+            <p class="hint">Vanille de Madagascar, coulis maison</p>
+          </div>
+          <div class="price">6€</div>
+        </article>
+      </div>
+      <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+        <a class="pill" href="#">Voir le menu complet (PDF)</a>
+        <a class="cta" href="#reservations">Réserver maintenant</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="reservations">
+    <div class="container">
+      <h3 class="section-title">Réserver une table</h3>
+      <p class="section-desc">Réponse sous 15 minutes pendant les horaires d'ouverture.</p>
+      <form class="card form" id="resForm" action="https://formspree.io/f/mnnbnkdo" method="POST" novalidate>
+        <!-- Champs visibles -->
+        <div>
+          <label for="name">Nom complet</label>
+          <input id="name" name="name" placeholder="Jean Dupont" required />
+        </div>
+
+        <div>
+          <label for="phone">Téléphone</label>
+          <input id="phone" name="phone" type="tel" placeholder="06 12 34 56 78" required />
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="_replyto" type="email" placeholder="jean@mail.com" required />
+        </div>
+
+        <div>
+          <label for="guests">Nombre de personnes</label>
+          <select id="guests" name="guests" required>
+            <option value="">Sélectionner…</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6+</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="date">Date</label>
+          <input id="date" name="date" type="text" inputmode="none" placeholder="JJ/MM/AAAA" required readonly />
+        </div>
+
+        <div>
+          <label for="time">Heure</label>
+          <input id="time" name="time" type="text" inputmode="none" placeholder="HH:MM" required readonly />
+        </div>
+
+        <div class="full">
+          <label for="notes">Message (optionnel)</label>
+          <textarea id="notes" name="notes" placeholder="Allergies, préférence de table, événement spécial…"></textarea>
+        </div>
+
+        <!-- Consentement RGPD (optionnel mais recommandé) -->
+        <div class="full consent-wrap">
+          <input type="checkbox" id="consent" required />
+          <label for="consent">
+            J’accepte que mes informations soient utilisées pour traiter ma demande de réservation.
+          </label>
+        </div>
+
+        <!-- Champs cachés utiles -->
+        <input type="hidden" name="_subject" value="Nouvelle demande de réservation — La Dolce Vita" />
+        <input type="hidden" name="_template" value="table" />
+
+        <!-- Honeypot anti-spam -->
+        <input type="text" name="website" tabindex="-1" autocomplete="off"
+          style="position:absolute;left:-9999px;opacity:0" />
+
+        <div class="full">
+          <button class="cta" type="submit" id="resSubmit">Envoyer la demande</button>
+          <a class="pill call-mobile" href="tel:+33123456789">Appeler maintenant</a>
+
+          <!-- Notices -->
+          <div id="resNotice" class="notice" role="status" aria-live="polite" style="display:none">
+            Merci ! Votre demande a été envoyée. Nous vous confirmons par email/SMS.
+          </div>
+          <div id="resError" class="notice" role="alert"
+            style="display:none;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.4);color:#fecaca">
+            Désolé, l’envoi a échoué. Réessayez plus tard ou appelez-nous.
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container contact">
+      <div class="card">
+        <h3 class="section-title">Infos & contact</h3>
+        <p class="section-desc">12 Rue des Oliviers, [Ville] · Ouvert tous les jours 11h30–23h00</p>
+        <p><strong>Téléphone :</strong> <a href="tel:+33123456789">01 23 45 67 89</a></p>
+        <p><strong>Email :</strong> <a href="mailto:contact@exemple-restaurant.fr">contact@exemple-restaurant.fr</a></p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+          <a class="cta" href="#reservations">Réserver</a>
+          <a class="pill" href="#">Instagram</a>
+          <a class="pill" href="#">Facebook</a>
+        </div>
+      </div>
+      <!-- Map placeholder (data URI, offline-safe) -->
+      <img class="map" alt="Plan de localisation"
+        src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%233a2a20'/%3E%3Cstop offset='100%25' stop-color='%231b1b1b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23caa56a' font-family='Georgia, serif' font-size='64'%3EPlan / Map%3C/text%3E%3C/svg%3E" />
+    </div>
+  </section>
+
+  <button id="toTop" aria-label="Remonter en haut">
+    <img src="assets/img/topArrow.png" alt="" />
+  </button>
+  <section id="team">
+    <div class="container">
+      <h3 class="section-title">Notre équipe</h3>
+      <p class="section-desc">Des passionnés de cuisine et de convivialité à votre service.</p>
+      <div class="team-grid">
+        <div class="team-card">
+          <img src="https://images.unsplash.com/photo-1603415526960-f7e0328d9fbb?q=80&w=400&auto=format&fit=crop"
+            alt="Chef Luigi" />
+          <h4>Luigi Rossi</h4>
+          <p class="role">Chef cuisinier</p>
+          <p class="bio">Spécialiste des pâtes fraîches et des sauces italiennes traditionnelles.</p>
+        </div>
+        <div class="team-card">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop"
+            alt="Maria" />
+          <h4>Maria Bianchi</h4>
+          <p class="role">Responsable de salle</p>
+          <p class="bio">Toujours souriante, elle veille à ce que chaque invité se sente chez lui.</p>
+        </div>
+        <div class="team-card">
+          <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=400&auto=format&fit=crop"
+            alt="Marco" />
+          <h4>Marco De Santis</h4>
+          <p class="role">Sommelier</p>
+          <p class="bio">Sélectionne les meilleurs vins italiens pour sublimer vos plats.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Calendrier -->
+  <div class="modal" id="dateModal" aria-hidden="true" role="dialog" aria-labelledby="dateTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="icon-btn" id="prevMonth" aria-label="Mois précédent">‹</button>
+        <h4 id="dateTitle"></h4>
+        <button class="icon-btn" id="nextMonth" aria-label="Mois suivant">›</button>
+      </div>
+      <div class="calendar">
+        <div class="cal-weekdays"></div>
+        <div class="cal-grid"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="pill" id="closeDate">Annuler</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Heure -->
+  <div class="modal" id="timeModal" aria-hidden="true" role="dialog" aria-labelledby="timeTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="timeTitle">Choisir une heure</h4>
+      </div>
+      <div class="time-list" id="timeList"></div>
+      <div class="modal-actions">
+        <button class="pill" id="closeTime">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <footer>
+    <div class="container"
+      style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <small>© <span id="year"></span> La Dolce Vita — Tous droits réservés.</small>
+      <small><a href="#">Mentions légales</a> · <a href="#">Politique de confidentialité</a></small>
+    </div>
+  </footer>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.querySelector('.carousel-track');
+      if (!track) return; // sécurité si la section n'existe pas
+
+      const slides = Array.from(track.children);
+      const prevBtn = document.querySelector('.carousel-btn.prev');
+      const nextBtn = document.querySelector('.carousel-btn.next');
+      const dotsWrap = document.querySelector('.carousel-dots');
+      const dots = Array.from(dotsWrap.querySelectorAll('.dot'));
+      let index = 0, timer;
+
+      function goTo(i) {
+        index = (i + slides.length) % slides.length;
+        track.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach((d, k) => d.setAttribute('aria-selected', k === index ? 'true' : 'false'));
+      }
+
+      function next() { goTo(index + 1); }
+      function prev() { goTo(index - 1); }
+
+      // Auto-play
+      function start() { timer = setInterval(next, 5000); }
+      function stop() { clearInterval(timer); }
+
+      nextBtn.addEventListener('click', () => { stop(); next(); start(); });
+      prevBtn.addEventListener('click', () => { stop(); prev(); start(); });
+      dots.forEach((d, k) => d.addEventListener('click', () => { stop(); goTo(k); start(); }));
+
+      // Pause au survol (optionnel)
+      track.addEventListener('mouseenter', stop);
+      track.addEventListener('mouseleave', start);
+
+      goTo(0);
+      start();
+    });
+  </script>
+  <script>
+    (function () {
+      const header = document.querySelector('header');
+      const acc = document.getElementById('accueil'); // ta section carousel
+      const track = acc?.querySelector('.carousel-track');
+      const slides = acc?.querySelectorAll('.carousel-slide');
+
+      function setCarouselHeight() {
+        if (!acc) return;
+        const h = header ? header.offsetHeight : 0;
+        const vh = window.innerHeight;
+        const target = Math.max(vh - h, 320); // jamais en-dessous de 320px
+        acc.style.minHeight = target + 'px';
+        if (track) track.style.height = target + 'px';
+        slides?.forEach(s => s.style.height = target + 'px');
+        // Décale les boutons pour les centrer entre le haut de la section visible
+        document.querySelectorAll('.carousel-btn').forEach(btn => {
+          btn.style.top = (h + target / 2) + 'px';
+          btn.style.transform = 'translateY(-50%)';
+        });
+      }
+
+      window.addEventListener('resize', setCarouselHeight);
+      window.addEventListener('load', setCarouselHeight);
+      setCarouselHeight();
+    })();
+  </script>
+  <script>
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        toTop.classList.add('show');
+      } else {
+        toTop.classList.remove('show');
+      }
+    });
+    toTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+  <script>
+    // Formulaire réel via Formspree (AJAX)
+    (function () {
+      const form = document.getElementById('resForm');
+      const notice = document.getElementById('resNotice');
+      const error = document.getElementById('resError');
+      const submit = document.getElementById('resSubmit');
+      if (!form) return;
+
+      function show(el) { el.style.display = 'block'; }
+      function hide(el) { el.style.display = 'none'; }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hide(error); hide(notice);
+
+        // Validation minimale
+        const required = form.querySelectorAll('[required]');
+        for (const r of required) {
+          if ((r.type === 'checkbox' && !r.checked) || (r.value || '').trim() === '') {
+            r.focus();
+            return;
+          }
+        }
+
+        // Anti-spam : si le honeypot a une valeur → on bloque
+        const hp = form.querySelector('input[name="website"]');
+        if (hp && hp.value.trim() !== '') return;
+
+        // Etat chargement
+        submit.disabled = true;
+        const oldText = submit.textContent;
+        submit.textContent = 'Envoi…';
+
+        try {
+          const action = form.getAttribute('action');
+          const data = new FormData(form);
+          const res = await fetch(action, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: data
+          });
+
+          if (res.ok) {
+            form.reset();
+            show(notice);
+            window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
+          } else {
+            show(error);
+          }
+        } catch (err) {
+          show(error);
+        } finally {
+          submit.disabled = false;
+          submit.textContent = oldText;
+        }
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      const dateInput = document.getElementById('date');
+      const timeInput = document.getElementById('time');
+      if (!dateInput || !timeInput) return;
+
+      // --- Modals
+      const dateModal = document.getElementById('dateModal');
+      const timeModal = document.getElementById('timeModal');
+      const openModal = m => (m.classList.add('show'), m.setAttribute('aria-hidden', 'false'));
+      const closeModal = m => (m.classList.remove('show'), m.setAttribute('aria-hidden', 'true'));
+
+      // Fermer au clic sur l’overlay
+      [dateModal, timeModal].forEach(m => m.addEventListener('click', (e) => {
+        if (e.target === m) closeModal(m);
+      }));
+      document.getElementById('closeDate').addEventListener('click', () => closeModal(dateModal));
+      document.getElementById('closeTime').addEventListener('click', () => closeModal(timeModal));
+
+      // --- Calendrier
+      const title = document.getElementById('dateTitle');
+      const grid = dateModal.querySelector('.cal-grid');
+      const weekdaysWrap = dateModal.querySelector('.cal-weekdays');
+      const prevBtn = document.getElementById('prevMonth');
+      const nextBtn = document.getElementById('nextMonth');
+
+      const WD = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']; // semaine en commençant lundi
+      weekdaysWrap.innerHTML = WD.map(d => `<div>${d}</div>`).join('');
+
+      let current = new Date(); // mois affiché
+      current.setHours(0, 0, 0, 0);
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+
+      // Utilitaires
+      const pad = n => String(n).padStart(2, '0');
+      const toFr = d => `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+
+      function renderCalendar() {
+        // début du mois
+        const y = current.getFullYear(), m = current.getMonth();
+        const first = new Date(y, m, 1);
+        const startIdx = (first.getDay() + 6) % 7; // 0=Mon ... 6=Sun
+
+        const lastDay = new Date(y, m + 1, 0).getDate();
+        const prevLast = new Date(y, m, 0).getDate();
+
+        // Header titre
+        const monthName = first.toLocaleString('fr-FR', { month: 'long', year: 'numeric' });
+        title.textContent = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+
+        // Construire cases (42 : 6 lignes x 7)
+        const cells = [];
+        // jours du mois précédent (muted)
+        for (let i = startIdx - 1; i >= 0; i--) {
+          const day = prevLast - i;
+          cells.push(`<div class="cal-day muted">${day}</div>`);
+        }
+        // jours du mois courant
+        for (let d = 1; d <= lastDay; d++) {
+          const cellDate = new Date(y, m, d);
+          const isToday = +cellDate === +today;
+          const isPast = cellDate < today; // désactiver le passé (tu peux assouplir)
+          const selected = (dateInput.value && dateInput.value === toFr(cellDate));
+          cells.push(`<div class="cal-day ${isToday ? 'today' : ''} ${isPast ? 'disabled' : ''} ${selected ? 'selected' : ''}" data-date="${toFr(cellDate)}">${d}</div>`);
+        }
+        // compléter le mois suivant
+        while (cells.length < 42) {
+          const nextDay = cells.length - (startIdx + lastDay) + 1;
+          cells.push(`<div class="cal-day muted">${nextDay}</div>`);
+        }
+
+        grid.innerHTML = cells.join('');
+
+        // Click sur un jour
+        grid.querySelectorAll('.cal-day[data-date]').forEach(el => {
+          el.addEventListener('click', () => {
+            dateInput.value = el.dataset.date;
+            closeModal(dateModal);
+            // focus directement sur l'heure
+            setTimeout(() => timeInput.focus(), 50);
+          });
+        });
+
+        // Navigation
+        prevBtn.onclick = () => { current.setMonth(current.getMonth() - 1); renderCalendar(); };
+        nextBtn.onclick = () => { current.setMonth(current.getMonth() + 1); renderCalendar(); };
+      }
+
+      // --- Time picker
+      const timeList = document.getElementById('timeList');
+
+      function generateTimes(start = '11:30', end = '23:00', stepMin = 15) {
+        // start/end format "HH:MM"
+        const [sh, sm] = start.split(':').map(Number);
+        const [eh, em] = end.split(':').map(Number);
+        const startMin = sh * 60 + sm;
+        const endMin = eh * 60 + em;
+
+        const out = [];
+        for (let t = startMin; t <= endMin; t += stepMin) {
+          const h = Math.floor(t / 60), m = t % 60;
+          out.push(`${pad(h)}:${pad(m)}`);
+        }
+        return out;
+      }
+
+      function renderTimes() {
+        const slots = generateTimes('11:30', '23:00', 15); // ajuste tes horaires ici
+        timeList.innerHTML = slots.map(s => `<button type="button" class="time-slot" data-time="${s}">${s}</button>`).join('');
+        timeList.querySelectorAll('.time-slot').forEach(btn => {
+          btn.addEventListener('click', () => {
+            timeInput.value = btn.dataset.time;
+            closeModal(timeModal);
+          });
+        });
+      }
+
+      // Ouverture modales
+      dateInput.addEventListener('click', () => { openModal(dateModal); renderCalendar(); });
+      timeInput.addEventListener('click', () => { openModal(timeModal); renderTimes(); });
+
+      // Accessibilité : Échap pour fermer
+      window.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          if (dateModal.classList.contains('show')) closeModal(dateModal);
+          if (timeModal.classList.contains('show')) closeModal(timeModal);
+        }
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      const form = document.getElementById('resForm');
+      const notice = document.getElementById('resNotice');
+      const submit = document.getElementById('resSubmit');
+      let error = document.getElementById('resError');
+
+      if (!error) {
+        error = document.createElement('div');
+        error.id = 'resError';
+        error.className = 'notice';
+        error.style.display = 'none';
+        error.style.background = 'rgba(239,68,68,.12)';
+        error.style.borderColor = 'rgba(239,68,68,.4)';
+        error.style.color = '#fecaca';
+        error.setAttribute('role', 'alert');
+        error.textContent = 'Désolé, ce créneau est indisponible ou une erreur est survenue.';
+        form.querySelector('.full').appendChild(error);
+      }
+
+      const show = el => el.style.display = 'block';
+      const hide = el => el.style.display = 'none';
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hide(error); hide(notice);
+
+        const payload = {
+          name: form.name.value.trim(),
+          phone: form.phone.value.trim(),
+          email: form.email.value.trim(),
+          guests: form.guests.value,
+          date: form.date.value, // "JJ/MM/AAAA"
+          time: form.time.value, // "HH:MM"
+          notes: form.notes.value.trim()
+        };
+
+        if (!payload.name || !payload.phone || !payload.guests || !payload.date || !payload.time) {
+          show(error); error.textContent = 'Merci de remplir tous les champs requis.'; return;
+        }
+
+        submit.disabled = true; const old = submit.textContent; submit.textContent = 'Envoi…';
+
+        try {
+          const res = await fetch('/api/reserve', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (res.status === 201) {
+            form.reset();
+            show(notice);
+            window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
+          } else if (res.status === 409) {
+            show(error); error.textContent = 'Ce créneau est déjà réservé. Choisissez une autre heure.';
+          } else {
+            show(error); error.textContent = 'Impossible d’enregistrer la réservation pour le moment.';
+          }
+        } catch (err) {
+          show(error); error.textContent = 'Erreur réseau. Vérifiez votre connexion.';
+        } finally {
+          submit.disabled = false; submit.textContent = old;
+        }
+      });
+    })();
+  </script>
+  <script>
+    /* =========================
+       Helpers génériques
+    ========================= */
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+    const pad2 = n => String(n).padStart(2, '0');
+    const toFr = d => `${pad2(d.getDate())}/${pad2(d.getMonth() + 1)}/${d.getFullYear()}`;
+    const frToIsoDate = (fr) => {
+      const [d, m, y] = (fr || '').split('/').map(Number);
+      if (!d || !m || !y) return null;
+      return `${y}-${pad2(m)}-${pad2(d)}`;
+    };
+    const generateTimes = (start = '11:30', end = '23:00', stepMin = 15) => {
+      const out = [], [sh, sm] = start.split(':').map(Number), [eh, em] = end.split(':').map(Number);
+      for (let t = sh * 60 + sm; t <= eh * 60 + em; t += stepMin) {
+        const h = Math.floor(t / 60), m = t % 60; out.push(`${pad2(h)}:${pad2(m)}`);
+      }
+      return out;
+    };
+    const openModal = (m) => (m.classList.add('show'), m.setAttribute('aria-hidden', 'false'));
+    const closeModal = (m) => (m.classList.remove('show'), m.setAttribute('aria-hidden', 'true'));
+
+    /* =========================
+       Navigation / Header / Divers
+    ========================= */
+    document.addEventListener('DOMContentLoaded', () => {
+      // Burger menu
+      const toggle = $('.menu-toggle');
+      const list = $('#menu-list');
+      toggle?.addEventListener('click', () => {
+        const isOpen = list.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      // Footer année
+      const y = $('#year'); if (y) y.textContent = new Date().getFullYear();
+
+      // Back to top
+      const toTop = $('#toTop');
+      if (toTop) {
+        window.addEventListener('scroll', () => {
+          window.scrollY > 300 ? toTop.classList.add('show') : toTop.classList.remove('show');
+        });
+        toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      }
+    });
+
+    /* =========================
+       Carousel (hero)
+    ========================= */
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = $('.carousel-track');
+      if (!track) return;
+
+      const slides = $$('.carousel-slide', track);
+      const prevBtn = $('.carousel-btn.prev');
+      const nextBtn = $('.carousel-btn.next');
+      const dotsWrap = $('.carousel-dots');
+      const dots = $$('.dot', dotsWrap);
+      let index = 0, timer;
+
+      const goTo = (i) => {
+        index = (i + slides.length) % slides.length;
+        track.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach((d, k) => d.setAttribute('aria-selected', k === index ? 'true' : 'false'));
+      };
+      const next = () => goTo(index + 1);
+      const prev = () => goTo(index - 1);
+      const start = () => { timer = setInterval(next, 5000); };
+      const stop = () => { clearInterval(timer); };
+
+      nextBtn?.addEventListener('click', () => { stop(); next(); start(); });
+      prevBtn?.addEventListener('click', () => { stop(); prev(); start(); });
+      dots.forEach((d, k) => d.addEventListener('click', () => { stop(); goTo(k); start(); }));
+
+      track.addEventListener('mouseenter', stop);
+      track.addEventListener('mouseleave', start);
+
+      // Hauteur = viewport - header (supprime la bande noire)
+      (function fitHero() {
+        const header = document.querySelector('header');
+        const acc = document.getElementById('accueil');
+        const slidesEls = acc?.querySelectorAll('.carousel-slide');
+        const setH = () => {
+          if (!acc) return;
+          const h = header ? header.offsetHeight : 0;
+          const vh = window.innerHeight;
+          const target = Math.max(vh - h, 320);
+          acc.style.minHeight = target + 'px';
+          track.style.height = target + 'px';
+          slidesEls?.forEach(s => s.style.height = target + 'px');
+          $$('.carousel-btn').forEach(btn => {
+            btn.style.top = (h + target / 2) + 'px';
+            btn.style.transform = 'translateY(-50%)';
+          });
+        };
+        window.addEventListener('resize', setH);
+        window.addEventListener('load', setH);
+        setH();
+      })();
+
+      goTo(0);
+      start();
+    });
+
+    /* =========================
+       Formulaire réservation -> /api/reserve
+    ========================= */
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = $('#resForm');
+      const notice = $('#resNotice');
+      const submit = $('#resSubmit');
+      let error = $('#resError');
+
+      if (!form) return;
+
+      if (!error) {
+        error = document.createElement('div');
+        error.id = 'resError';
+        error.className = 'notice';
+        error.style.display = 'none';
+        error.style.background = 'rgba(239,68,68,.12)';
+        error.style.borderColor = 'rgba(239,68,68,.4)';
+        error.style.color = '#fecaca';
+        error.setAttribute('role', 'alert');
+        error.textContent = 'Désolé, ce créneau est indisponible ou une erreur est survenue.';
+        form.querySelector('.full')?.appendChild(error);
+      }
+
+      const show = el => el && (el.style.display = 'block');
+      const hide = el => el && (el.style.display = 'none');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hide(error); hide(notice);
+
+        const payload = {
+          name: form.name.value.trim(),
+          phone: form.phone.value.trim(),
+          email: form.email.value.trim(),
+          guests: form.guests.value,
+          date: form.date.value, // JJ/MM/AAAA
+          time: form.time.value, // HH:MM
+          notes: form.notes.value.trim()
+        };
+
+        if (!payload.name || !payload.phone || !payload.guests || !payload.date || !payload.time) {
+          show(error); error.textContent = 'Merci de remplir tous les champs requis.'; return;
+        }
+
+        submit.disabled = true; const old = submit.textContent; submit.textContent = 'Envoi…';
+
+        try {
+          const res = await fetch('/api/reserve', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (res.status === 201) {
+            form.reset();
+            show(notice);
+            window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
+          } else if (res.status === 409) {
+            show(error); error.textContent = 'Ce créneau est déjà réservé. Choisissez une autre heure.';
+          } else if (res.status === 400) {
+            const j = await res.json().catch(() => null);
+            show(error); error.textContent = j?.error || 'Champs manquants ou invalides.';
+          } else {
+            show(error); error.textContent = 'Impossible d’enregistrer la réservation pour le moment.';
+          }
+        } catch (err) {
+          show(error); error.textContent = 'Erreur réseau. Vérifiez votre connexion.';
+        } finally {
+          submit.disabled = false; submit.textContent = old;
+        }
+      });
+    });
+
+    /* =========================
+       Calendrier custom + Time picker dynamique (/api/slots)
+    ========================= */
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateInput = $('#date');
+      const timeInput = $('#time');
+      const dateModal = $('#dateModal');
+      const timeModal = $('#timeModal');
+      const timeList = $('#timeList');
+
+      if (!dateInput || !timeInput || !dateModal || !timeModal || !timeList) return;
+
+      // Fermer au clic overlay + boutons close + Esc
+      [dateModal, timeModal].forEach(m => m.addEventListener('click', e => { if (e.target === m) closeModal(m); }));
+      $('#closeDate')?.addEventListener('click', () => closeModal(dateModal));
+      $('#closeTime')?.addEventListener('click', () => closeModal(timeModal));
+      window.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          if (dateModal.classList.contains('show')) closeModal(dateModal);
+          if (timeModal.classList.contains('show')) closeModal(timeModal);
+        }
+      });
+
+      // ---- Rendu calendrier
+      const title = $('#dateTitle');
+      const grid = $('.cal-grid', dateModal);
+      const weekdaysWrap = $('.cal-weekdays', dateModal);
+      const prevBtn = $('#prevMonth');
+      const nextBtn = $('#nextMonth');
+
+      const WD = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+      weekdaysWrap.innerHTML = WD.map(d => `<div>${d}</div>`).join('');
+
+      let current = new Date(); current.setHours(0, 0, 0, 0);
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+
+      function renderCalendar() {
+        const y = current.getFullYear(), m = current.getMonth();
+        const first = new Date(y, m, 1);
+        const startIdx = (first.getDay() + 6) % 7; // 0=Lun
+        const lastDay = new Date(y, m + 1, 0).getDate();
+        const prevLast = new Date(y, m, 0).getDate();
+
+        const monthName = first.toLocaleString('fr-FR', { month: 'long', year: 'numeric' });
+        title.textContent = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+
+        const cells = [];
+        // Jours mois précédent (muted)
+        for (let i = startIdx - 1; i >= 0; i--) cells.push(`<div class="cal-day muted">${prevLast - i}</div>`);
+        // Jours mois courant
+        for (let d = 1; d <= lastDay; d++) {
+          const cellDate = new Date(y, m, d);
+          const isToday = +cellDate === +today;
+          const isPast = cellDate < today;
+          const selected = (dateInput.value && dateInput.value === toFr(cellDate));
+          cells.push(`<div class="cal-day ${isToday ? 'today' : ''} ${isPast ? 'disabled' : ''} ${selected ? 'selected' : ''}" data-date="${toFr(cellDate)}">${d}</div>`);
+        }
+        // Compléter début mois suivant
+        while (cells.length < 42) {
+          const nextDay = cells.length - (startIdx + lastDay) + 1;
+          cells.push(`<div class="cal-day muted">${nextDay}</div>`);
+        }
+
+        grid.innerHTML = cells.join('');
+
+        // Sélection
+        $$('.cal-day[data-date]', grid).forEach(el => {
+          if (el.classList.contains('disabled')) return;
+          el.addEventListener('click', () => {
+            dateInput.value = el.dataset.date;
+            closeModal(dateModal);
+            // Focus heure puis rafraîchit time picker
+            setTimeout(() => { timeInput.focus(); renderTimes(); }, 50);
+          });
+        });
+
+        // Navigation mois
+        prevBtn.onclick = () => { current.setMonth(current.getMonth() - 1); renderCalendar(); };
+        nextBtn.onclick = () => { current.setMonth(current.getMonth() + 1); renderCalendar(); };
+      }
+
+      // ---- Time picker dynamique
+      async function renderTimes() {
+        // État "chargement"
+        timeList.innerHTML = `<div class="hint" style="grid-column:1/-1;text-align:center;padding:8px">Chargement des créneaux…</div>`;
+
+        const slots = generateTimes('11:30', '23:00', 15); // ajuste ici selon horaires
+        const iso = frToIsoDate(dateInput.value);
+        let taken = [];
+        if (iso) {
+          try {
+            const res = await fetch(`/api/slots?date=${encodeURIComponent(iso)}`);
+            if (res.ok) {
+              const j = await res.json();
+              taken = Array.isArray(j.taken) ? j.taken : [];
+            }
+          } catch { /* on laisse tout disponible */ }
+        }
+
+        timeList.innerHTML = slots.map(s => {
+          const disabled = taken.includes(s);
+          return `<button type="button" class="time-slot${disabled ? ' disabled' : ''}" data-time="${s}" ${disabled ? 'aria-disabled="true"' : ''}>${s}</button>`;
+        }).join('');
+
+        $$('.time-slot', timeList).forEach(btn => {
+          if (btn.classList.contains('disabled')) return;
+          btn.addEventListener('click', () => {
+            timeInput.value = btn.dataset.time;
+            closeModal(timeModal);
+          });
+        });
+      }
+
+      // Ouvrir modales
+      dateInput.addEventListener('click', () => { openModal(dateModal); renderCalendar(); });
+      timeInput.addEventListener('click', () => { openModal(timeModal); renderTimes(); });
+
+      // Si la date change autrement (saisie manuelle), refresh time picker si modale ouverte
+      ['input', 'change'].forEach(evt => {
+        dateInput.addEventListener(evt, () => {
+          if (timeModal.classList.contains('show')) renderTimes();
+        });
+      });
+    });
+  </script>
+
+
+
+</body>
+
+</html>
